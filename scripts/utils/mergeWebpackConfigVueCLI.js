@@ -18,7 +18,7 @@ module.exports = function mergeWebpackConfigVueCLI(baseConfig) {
 		// If there is cache-loader inside .vue rule, it should be removed
 		// the new version of vue-loader generates error with cache-loader
 		newWebpackConfig.module.rules = rules.map(rule => {
-			if (rule.test && rule.test.test('.vue')) {
+			if (rule.test && rule.test.test('.vue') && 'use' in rule) {
 				return {
 					test: rule.test,
 					use: rule.use.filter(use => use.loader === 'vue-loader'),
